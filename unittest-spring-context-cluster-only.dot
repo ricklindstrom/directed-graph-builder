@@ -1,0 +1,15 @@
+digraph G { 
+  graph [rankdir=LR fontname=Helvetica]; 
+  node [fontsize=11 shape=record fontname=Helvetica style=filled fillcolor=lightyellow]; 
+  edge [fontname=Helvetica fontsize=9]; 
+
+"spring_graphviz_postprocessor_xml" [label="spring_graphviz_postprocessor_xml" fillcolor="#fff7ed"];
+
+"Internal" [label="Internal" fillcolor="#ffffff"];
+
+"spring_test1_xml" [label="spring_test1_xml" fillcolor="#84ffff"];
+  "spring_test1_xml" -> "spring_test2_xml" [color="#419cb1" ];
+
+"spring_test2_xml" [label="spring_test2_xml" fillcolor="#a5ff64"];
+
+}

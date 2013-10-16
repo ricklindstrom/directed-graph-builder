@@ -1,0 +1,73 @@
+digraph G { 
+  graph [rankdir=LR fontname=Helvetica]; 
+  node [fontsize=11 shape=record fontname=Helvetica style=filled fillcolor=lightyellow]; 
+  edge [fontname=Helvetica fontsize=9]; 
+
+subgraph cluster_spring_graphviz_postprocessor_xml { 
+    [label="spring_graphviz_postprocessor_xml"]; 
+"basicGraphvizPostProcessor";
+"obfuscatedGraphvizPostProcessor";
+"clusterOnlyGraphvizPostProcessor";
+}
+
+subgraph cluster_Internal { 
+    [label="Internal"]; 
+"org.springframework.context.annotation.internalCommonAnnotationProcessor";
+"org.springframework.context.annotation.internalAutowiredAnnotationProcessor";
+"org.springframework.context.annotation.internalRequiredAnnotationProcessor";
+}
+
+subgraph cluster_spring_test1_xml { 
+    [label="spring_test1_xml"]; 
+"widget1";
+"widget11";
+"widget12";
+"widget111";
+}
+
+subgraph cluster_spring_test2_xml { 
+    [label="spring_test2_xml"]; 
+"widget2";
+"widget21";
+"widget22";
+"widget211";
+}
+
+"clusterOnlyGraphvizPostProcessor" [label="clusterOnlyGraphvizPostProcessor | GraphvizPostProcessor | filename=unittest-spring-context-cluster-only_dot | clustersOnly=true" fillcolor="#fff7ed"];
+
+"widget21" [label="widget21 | Widget" fillcolor="#a5ff64"];
+  "widget21" -> "widget211" [color="#518131" ];
+
+"widget22" [label="widget22 | Widget" fillcolor="#a5ff64"];
+  "widget22" -> "widget211" [color="#518131" ];
+
+"widget111" [label="widget111 | Widget" fillcolor="#84ffff"];
+  "widget111" -> "widget2" [color="#419cb1" ];
+
+"widget12" [label="widget12 | Widget" fillcolor="#84ffff"];
+  "widget12" -> "widget111" [color="#419cb1" ];
+
+"widget11" [label="widget11 | Widget" fillcolor="#84ffff"];
+  "widget11" -> "widget111" [color="#419cb1" ];
+
+"org.springframework.context.annotation.internalRequiredAnnotationProcessor" [label="org.springframework.context.annotation.internalRequiredAnnotationProcessor | RequiredAnnotationBeanPostProcessor | order=2147483647" fillcolor="#ffffff"];
+
+"widget2" [label="widget2 | Widget" fillcolor="#a5ff64"];
+  "widget2" -> "widget21" [color="#518131" ];
+  "widget2" -> "widget22" [color="#518131" ];
+
+"widget1" [label="widget1 | Widget" fillcolor="#84ffff"];
+  "widget1" -> "widget12" [color="#419cb1" ];
+  "widget1" -> "widget11" [color="#419cb1" ];
+
+"basicGraphvizPostProcessor" [label="basicGraphvizPostProcessor | GraphvizPostProcessor | filename=unittest-spring-context_dot" fillcolor="#fff7ed"];
+
+"obfuscatedGraphvizPostProcessor" [label="obfuscatedGraphvizPostProcessor | GraphvizPostProcessor | filename=unittest-spring-context-obfuscated_dot | obfuscate=true" fillcolor="#fff7ed"];
+
+"org.springframework.context.annotation.internalAutowiredAnnotationProcessor" [label="org.springframework.context.annotation.internalAutowiredAnnotationProcessor | AutowiredAnnotationBeanPostProcessor | order=2147483647" fillcolor="#ffffff"];
+
+"widget211" [label="widget211 | Widget" fillcolor="#a5ff64"];
+
+"org.springframework.context.annotation.internalCommonAnnotationProcessor" [label="org.springframework.context.annotation.internalCommonAnnotationProcessor | CommonAnnotationBeanPostProcessor | order=2147483647" fillcolor="#ffffff"];
+
+}

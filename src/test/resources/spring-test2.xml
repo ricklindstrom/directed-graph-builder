@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:lang="http://www.springframework.org/schema/lang"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+	       http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-2.5.xsd">
+		
+	<bean id="widget2" class="com.directedgraphbuilder.Widget">
+        <property name="child1"><ref bean="widget21"/></property>	
+        <property name="child2"><ref bean="widget22"/></property>
+	</bean>
+
+	<bean id="widget21" class="com.directedgraphbuilder.Widget">
+        <property name="child1"><ref bean="widget211"/></property>	
+	</bean>
+
+	<bean id="widget22" class="com.directedgraphbuilder.Widget">
+        <property name="child1"><ref bean="widget211"/></property>
+	</bean>
+	<bean id="widget211" class="com.directedgraphbuilder.Widget">
+	</bean>
+
+</beans>
