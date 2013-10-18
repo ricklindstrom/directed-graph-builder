@@ -75,6 +75,10 @@ subgraph cluster_org_eclipse_jdt_internal_junit4_runner {
 "com.directedgraphbuilder.CallGraphBuilderTest$TestClass2" [label="CallGraphBuilderTest$TestClass2 | method" fillcolor="#ffc980"];
   "com.directedgraphbuilder.CallGraphBuilderTest$TestClass2" -> "com.directedgraphbuilder.CallGraphBuilderTest$Destination" [color="#82623e" ];
 
+"start" [label="START
+main" fillcolor="#b6b6b6"];
+  "start" -> "org.eclipse.jdt.internal.junit.runner.RemoteTestRunner" [color="#595959" ];
+
 "org.junit.internal.runners.ClassRoadie" [label="ClassRoadie | runProtected | runUnprotected" fillcolor="#617a86"];
   "org.junit.internal.runners.ClassRoadie" -> "org.junit.internal.runners.JUnit4ClassRunner$1" [color="#2f3c41" ];
   "org.junit.internal.runners.ClassRoadie" -> "org.junit.internal.runners.ClassRoadie" [color="#2f3c41" ];

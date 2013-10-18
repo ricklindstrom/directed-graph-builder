@@ -8,32 +8,30 @@ public abstract class Formatter {
 
     protected String q(String value) { return "\"" + value + "\""; }
 
-    
+    public abstract void format(Appendable appendable) throws IOException;
+        
     public abstract String format();
 
     public File save(String filename) {
         try {
             return saveInternal(filename);
-        } catch(IOException ioe) {
+        } catch(Exception ioe) {
             throw new RuntimeException(ioe);
         }
     }
     
-    private File saveInternal(String filename) throws IOException {
+    private File saveInternal(String filename) throws Exception {
         File file = new File(filename);
         
         System.out.println("Graph saving to: " + file.getCanonicalPath());
-
-        FileWriter fw = null; 
+        
+        Writer writer = null;
         try {
-            fw = new FileWriter(file);
-            String contents = format();
-            fw.append(contents);
+            writer = new BufferedWriter(new FileWriter(file));
+            format(writer);
             return file;
         } finally {
-            if (fw != null) {
-                fw.close();
-            }
+            if (writer !=null) writer.close();
         }
     }
     

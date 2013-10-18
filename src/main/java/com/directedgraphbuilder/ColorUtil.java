@@ -18,10 +18,13 @@ public class ColorUtil {
         if (value == null) {
             return Color.WHITE.darker();
         } else {
-            int r = 0xff - (Math.abs(1 + value.hashCode()) % 0xce);
-            int g = 0xff - (Math.abs(1 + value.hashCode()) % 0xdd);
-            int b = 0xff - (Math.abs(1 + value.hashCode()) % 0xec);
-            return new Color(r, g, b);
+        	int hash = Math.abs(value.hashCode());
+            int r = 0xff - (hash % 0xce);
+            int g = 0xff - (hash % 0xdd);
+            int b = 0xff - (hash % 0xec);
+            Color color = (new Color(r, g, b));
+            //Return a brighter color unless the brighter color is white
+            return color; // (!Color.WHITE.equals(color.brighter()) ? color.brighter() : color);
         }
     }        
 
@@ -30,7 +33,7 @@ public class ColorUtil {
      * Converts a Color to a hex color string. For example Color.GREEN will return "#00FF00".
      * @see java.awt.Color#decode(String) which does the opposite
      * @param color Color to encode
-     * @return String that represents an opaque color as a 24-bit integer. i.e. a hex Color string in the format #rrggbb. 
+     * @return A hex Color string in the format #rrggbb. 
      */
     public static String encodeColor(Color color) {
         if (color == null) {

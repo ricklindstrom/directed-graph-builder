@@ -51,6 +51,18 @@ public class Graph {
         return formatter.save(filename);
     }
     
+    public File save() {
+        File f = new File(".");
+        return save(f.getAbsolutePath() + "/" + generateGraphFilename());
+    }
+
+    private String generateGraphFilename() {
+        String filename = Thread.currentThread().getName();
+        filename = filename.replace('/', '-').replace(' ', '-').replace(';', '-');
+        Format format = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-S");
+        return format.format(new java.util.Date()) + "-" + filename + ".dot";
+    }
+
     public Graph buildClusterGraph() {
     	final Graph clusterGraph = new Graph();
     	
@@ -79,7 +91,7 @@ public class Graph {
     	return clusterGraph;
     }
     
-    
+    @Override
     public String toString() {
         return formatter.format();
     }
@@ -120,14 +132,12 @@ public class Graph {
     }
 
     private String escape(String string) {
-      return (string != null
-              ? string.replace("\"", "\\\"").replace("'","\\'").replace("\n","\\n").replace("$","_").replace(".", "_") 
-              : null);
-//        if (string != null && (string.contains("\"") || string.contains("'") || string.contains("\n"))) {
-//            return "(string)";
-//        } else {
-//            return string;
-//        }
+      String esc = string != null
+              ? string.replace("\"", "\\\"").replace("'","\\'").replace("\n","\\n").replace("$","_").replace(".", "_").replace("<", "~").replace(">", "~") : "";
+      if (esc.length() > 100) {
+          return esc.substring(0, 100);
+      }
+      return esc;
     }
     
     class Node {
@@ -140,8 +150,8 @@ public class Graph {
 
         public Node(String id, String name) {
             this.id = id;
-            this.simpleName = name;
-            this.name = name;
+            this.simpleName = escape(name);
+            this.name = escape(name);
         }
         public boolean isClustered() {
             return (clusterId != null);

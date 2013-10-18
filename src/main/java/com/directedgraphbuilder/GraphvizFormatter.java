@@ -13,18 +13,28 @@ public class GraphvizFormatter extends Formatter {
     
     @Override
     public String format() {
-
         StringBuilder sb = new StringBuilder();
+        try {
+            format(sb);
+        } catch(Exception ex) {
+            System.out.println(ex.getLocalizedMessage());
+        }
+        return sb.toString();
+    }
+    
+    @Override
+    public void format(Appendable sb) throws IOException {
+
         sb.append("digraph G { \n");
         sb.append("  graph [rankdir=" + graph.getRankdir() + " fontname=Helvetica]; \n");
-        sb.append("  node [fontsize=11 shape=record fontname=Helvetica style=filled fillcolor=lightyellow]; \n");
+        sb.append("  node [fontsize=10 shape=record fontname=Helvetica style=filled fillcolor=lightyellow]; \n");
         sb.append("  edge [fontname=Helvetica fontsize=9]; \n");
         sb.append("\n");
 
         //Render each clustered node inside the cluster that owns it
         for (Entry<String, List<Node>> cluster : graph.getClusters().entrySet()) {
             sb.append("subgraph cluster_" + cluster.getKey() + " { \n");
-            sb.append("    [label=\"" + cluster.getKey() + "\"]; \n");
+            sb.append("    [label=\"" + cluster.getKey().replace('_', '.') + "\"]; \n");
             
             //Render the nodes in the current cluster
             for (Node node : cluster.getValue()) {
@@ -39,8 +49,6 @@ public class GraphvizFormatter extends Formatter {
         }
 
         sb.append("}\n");
-
-        return sb.toString();
     }
     
     private String format(Graph.Node node) {
