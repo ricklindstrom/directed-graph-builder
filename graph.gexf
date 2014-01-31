@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<gexf xmlns='http://www.gexf.net/1.2draft' version='1.2'>
+    <graph mode='static' defaultedgetype='directed'>
+        <nodes>
+    <node id="NodeId5" label="NodeId5" />
+    <node id="NodeId6" label="NodeId6" />
+    <node id="NodeId1" label="Node Name 1 | Field 1 | Field 2" />
+    <node id="NodeId2" label="Node Name 2 | Field A" />
+    <node id="NodeId3" label="Node Name 3 | Field I" />
+    <node id="NodeId4" label="Node Name 4" />
+    </nodes><edges>
+    <edge id="0" source="NodeId1" target="NodeId2" />
+    <edge id="1" source="NodeId2" target="NodeId3" />
+    <edge id="2" source="NodeId2" target="NodeId4" />
+    <edge id="3" source="NodeId4" target="NodeId5" />
+    <edge id="4" source="NodeId4" target="NodeId6" />
+    <edge id="5" source="NodeId4" target="NodeId1" />
+</edges></graph></gexf>

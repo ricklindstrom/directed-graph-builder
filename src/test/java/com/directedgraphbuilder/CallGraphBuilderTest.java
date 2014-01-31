@@ -11,15 +11,15 @@ public class CallGraphBuilderTest {
         CallGraphBuilder b = new CallGraphBuilder();
         
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-        
         b.add(stackTrace);
-        
         Graph g = b.buildGraph();
-        
-        String result = g.toString();
-        
-        StringTester tester = new StringTester(result);
-        System.out.println(result);
+        StringTester tester = new StringTester(g.toString());
+        tester.contains(
+    		"start\" -> \"org_eclipse_jdt_internal_junit_runner_RemoteTestRunner",
+    		"org_eclipse_jdt_internal_junit_runner_TestExecution\" -> \"org_eclipse_jdt_internal_junit4_runner_JUnit4TestReference",
+    		"org_junit_internal_runners_JUnit4ClassRunner\" -> \"org_junit_internal_runners_ClassRoadie",
+    		"org_eclipse_jdt_internal_junit_runner_RemoteTestRunner\" -> \"org_eclipse_jdt_internal_junit_runner_TestExecution"
+        );
     }
     
     @Test
@@ -28,6 +28,7 @@ public class CallGraphBuilderTest {
         CallGraphBuilder.EXCLUSIONS = CallGraphBuilder.EXCLUSIONS.replace("CallGraphBuilder", "XCallGraphBuilderX");
 
         try {
+        	CallGraphBuilder.clear();
             CallGraphBuilder.start();
 
             new TestClass1().method();

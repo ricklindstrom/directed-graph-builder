@@ -1,5 +1,6 @@
 package com.directedgraphbuilder;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,18 +23,27 @@ public class TgfFormatter extends Formatter {
     @Override
     public String format() {
         StringBuilder sb = new StringBuilder();
+        try {
+            format(sb);
+        } catch(Exception ex) {
+            System.out.println(ex.getLocalizedMessage());
+        }
+        return sb.toString();
+    }
+    
+    @Override
+    public void format(Appendable sb) throws IOException {
 
         int i = 1;
         for (final Node node : graph.getNodes().values()) {
             nodeToId.put(node, i);
-            sb.append(i).append(" ").append(node.getSimpleName()).append("\n");
+            sb.append(Integer.toString(i)).append(" ").append(node.getSimpleName()).append("\n");
             i++;
         }
-
         
         for (final Node source : graph.getNodes().values()) {
             for (final String edgeId : source.getEdges()) {
-                Node target = graph.getNodes().get(edgeId);
+                Node target = graph.getNode(edgeId);
                 if (!nodeToId.containsKey(target)) {
                     nodeToId.put(target, i++);
                 }
@@ -46,14 +56,12 @@ public class TgfFormatter extends Formatter {
             //System.out.println("N=" + source.getSimpleName());
             for (final String edgeId : source.getEdges()) {
                 //System.out.println("E=" + edgeId);
-                Node target = graph.getNodes().get(edgeId);
-                sb.append(nodeToId.get(source));
+                Node target = graph.getNode(edgeId);
+                sb.append(Integer.toString(nodeToId.get(source)));
                 sb.append(" ");
-                sb.append(nodeToId.get(target));
+                sb.append(Integer.toString(nodeToId.get(target)));
                 sb.append("\n");
             }
         }
-
-        return sb.toString();
     }
 }

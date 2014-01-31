@@ -1,12 +1,14 @@
 package com.directedgraphbuilder;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 
 public abstract class Formatter {
 
-    protected String q(String value) { return "\"" + value + "\""; }
+    protected String q(Object value) { return "\"" + value + "\""; }
 
     public abstract void format(Appendable appendable) throws IOException;
         

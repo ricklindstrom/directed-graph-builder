@@ -2,6 +2,8 @@ package com.directedgraphbuilder;
 
 import java.awt.Color;
 import java.io.File;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -42,8 +44,8 @@ public class Graph {
     }
     
     public Node addNode(String id, String name) {
-        Node node = new Node(id, name);
-        nodes.put(id, node);
+        Node node = new Node(escape(id), name);
+        nodes.put(escape(id), node);
         return node;
     }
 
@@ -97,17 +99,19 @@ public class Graph {
     }
 
     public Node addEdge(String sourceId, String targetId) {
-        
-        if (!nodes.containsKey(sourceId)) {
-            this.addNode(sourceId);
+        String eSourceId = escape(sourceId);
+        String eTargetId = escape(targetId);        
+    	
+        if (!nodes.containsKey(eSourceId)) {
+            this.addNode(eSourceId);
         }
 
-        if (!nodes.containsKey(targetId)) {
-            this.addNode(targetId);
+        if (!nodes.containsKey(eTargetId)) {
+            this.addNode(eTargetId);
         }
 
-        nodes.get(sourceId).addEdge(targetId);
-        return nodes.get(targetId);
+        nodes.get(eSourceId).addEdge(eTargetId);
+        return nodes.get(eTargetId);
     }
     
     private List<Node> getCluster(String clusterId) {
@@ -149,7 +153,7 @@ public class Graph {
         private String clusterId = null;
 
         public Node(String id, String name) {
-            this.id = id;
+            this.id = escape(id);
             this.simpleName = escape(name);
             this.name = escape(name);
         }
@@ -157,10 +161,10 @@ public class Graph {
             return (clusterId != null);
         }
         public Node addEdge(String targetId) {
-            if (!nodes.containsKey(targetId)) {
-                addNode(targetId);
+            if (!nodes.containsKey(escape(targetId))) {
+                addNode(escape(targetId));
             }
-            edges.add(targetId);
+            edges.add(escape(targetId));
             return this;
         }
         public String getId() {return id;}
@@ -197,13 +201,15 @@ public class Graph {
 
     }
 
-    public String getRankdir() { return rankdir; }
+    String getRankdir() { return rankdir; }
 
-    public Map<String, List<Node>> getClusters() { return this.clusters; }
+    Map<String, List<Node>> getClusters() { return this.clusters; }
 
-    public Map<String, Node> getNodes() { return this.nodes; }
+    @Deprecated public Map<String, Node> getNodes() { return this.nodes; }
 
-    public boolean contains(String id) { return this.nodes.containsKey(id); }
+    public Node getNode(String id) { return this.nodes.get(escape(id)); }
+    
+    boolean contains(String id) { return this.nodes.containsKey(escape(id)); }
 
 }
 

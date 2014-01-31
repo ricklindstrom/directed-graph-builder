@@ -62,8 +62,8 @@ public class CallGraphBuilder {
                         node.setCluster(packageId);
                     }
                     
-                    if(!graph.getNodes().get(id).containsField(field)) {
-                        graph.getNodes().get(id).addField(field);
+                    if(!graph.getNode(id).containsField(field)) {
+                        graph.getNode(id).addField(field);
                     }
                     
                     if (previousId != null) {
@@ -84,8 +84,7 @@ public class CallGraphBuilder {
             }
             
         } catch(Exception ex) {
-            //Bizarre Concurrency NPE? - Unable to compute value for LoaderKeyAndBuilder
-            System.out.println("CallGraphBuilder: " + ex.getLocalizedMessage());
+        	System.out.println("CallGraphBuilder: " + ex.getLocalizedMessage());
         }
     }
     
@@ -106,10 +105,10 @@ public class CallGraphBuilder {
     }
 
     public Graph buildGraph() {
+    	finishWork();    	
         return graph;
     }
 
-    //private static ThreadLocal<CallGraphBuilder> threadLocal = new InheritableThreadLocal<CallGraphBuilder>();
     private static ThreadLocal<CallGraphBuilder> threadLocal = new ThreadLocal<CallGraphBuilder>();
 
     public static void clear() {
@@ -174,32 +173,21 @@ public class CallGraphBuilder {
     }
 
     private Graph stopImpl() {
-    	try {
-			executor.awaitTermination(10, TimeUnit.SECONDS);
-		} catch (InterruptedException e) {}
+    	finishWork();
     	return graph;
     }
     
+    private void finishWork() {
+    	try {
+			boolean success = executor.awaitTermination(5, TimeUnit.SECONDS);
+			if (!success) {
+				System.out.println("unfinished work");
+			}
+		} catch (InterruptedException e) {}
+    }
     
     private static boolean isThreadTrackable() {
-
-        String threadName = Thread.currentThread().getName().toLowerCase();
-        
-        if (//!threadName.contains("jsp") 
-            !threadName.contains(".gif") 
-         && !threadName.contains(".png") 
-         //&& !threadName.contains(".js")
-         && !threadName.contains(".css")
-         //&& !threadName.contains("photo")
-         && !threadName.contains("javascript") 
-         && !threadName.contains("css")
-         //&& !threadName.contains("soap")
-         && !threadName.contains("jiffy")
-         ) {
-            return true;
-        } else {
-            return false;
-        }
+    	return true;    	
     }
 
     public static CallGraphBuilder get() {
@@ -211,8 +199,8 @@ public class CallGraphBuilder {
         if (isEnabled()) {
             CallGraphBuilder callGraphBuilder = threadLocal.get();
             Graph graph = callGraphBuilder.buildGraph();
-            if (graph.getNodes().containsKey("start")) {
-                graph.getNodes().get("start").addField(name);
+            if (graph.contains("start")) {
+                graph.getNode("start").addField(name);
             }
         }
     }

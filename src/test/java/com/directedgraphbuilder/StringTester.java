@@ -13,7 +13,6 @@ public class StringTester {
 
     
     public StringTester contains(String... items) {
-        
         int fromIndex = 0;
         int i = 0;
         for (String item : items) {

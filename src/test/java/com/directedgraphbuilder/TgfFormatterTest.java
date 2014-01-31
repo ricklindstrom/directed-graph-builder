@@ -100,7 +100,7 @@ public class TgfFormatterTest {
         //assertTrue("file.canRead", file.canRead());
         //file.deleteOnExit();
 
-        assertEquals("", 1, g.getNodes().get("Node Id 1").getEdges().size());
+        assertEquals("", 1, g.getNode("Node Id 1").getEdges().size());
     }
         
 }

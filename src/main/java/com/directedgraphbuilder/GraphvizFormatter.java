@@ -1,5 +1,6 @@
 package com.directedgraphbuilder;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -34,7 +35,7 @@ public class GraphvizFormatter extends Formatter {
         //Render each clustered node inside the cluster that owns it
         for (Entry<String, List<Node>> cluster : graph.getClusters().entrySet()) {
             sb.append("subgraph cluster_" + cluster.getKey() + " { \n");
-            sb.append("    [label=\"" + cluster.getKey().replace('_', '.') + "\"]; \n");
+            sb.append("    label=\"" + cluster.getKey().replace('_', '.') + "\"; \n");
             
             //Render the nodes in the current cluster
             for (Node node : cluster.getValue()) {

@@ -1,88 +1,87 @@
 digraph G { 
   graph [rankdir=LR fontname=Helvetica]; 
-  node [fontsize=11 shape=record fontname=Helvetica style=filled fillcolor=lightyellow]; 
+  node [fontsize=10 shape=record fontname=Helvetica style=filled fillcolor=lightyellow]; 
   edge [fontname=Helvetica fontsize=9]; 
 
 subgraph cluster_org_eclipse_jdt_internal_junit_runner { 
-    [label="org_eclipse_jdt_internal_junit_runner"]; 
-"org.eclipse.jdt.internal.junit.runner.RemoteTestRunner";
-"org.eclipse.jdt.internal.junit.runner.TestExecution";
+    label="org.eclipse.jdt.internal.junit.runner"; 
+"org_eclipse_jdt_internal_junit_runner_RemoteTestRunner";
+"org_eclipse_jdt_internal_junit_runner_TestExecution";
 }
 
 subgraph cluster_com_directedgraphbuilder { 
-    [label="com_directedgraphbuilder"]; 
-"com.directedgraphbuilder.CallGraphBuilderTest";
-"com.directedgraphbuilder.CallGraphBuilderTest$TestClass1";
-"com.directedgraphbuilder.CallGraphBuilderTest$Destination";
-"com.directedgraphbuilder.CallGraphBuilder";
-"com.directedgraphbuilder.CallGraphBuilderTest$TestClass2";
+    label="com.directedgraphbuilder"; 
+"com_directedgraphbuilder_CallGraphBuilderTest";
+"com_directedgraphbuilder_CallGraphBuilderTest_TestClass1";
+"com_directedgraphbuilder_CallGraphBuilderTest_Destination";
+"com_directedgraphbuilder_CallGraphBuilder";
+"com_directedgraphbuilder_CallGraphBuilderTest_TestClass2";
 }
 
 subgraph cluster_org_junit_internal_runners { 
-    [label="org_junit_internal_runners"]; 
-"org.junit.internal.runners.JUnit4ClassRunner";
-"org.junit.internal.runners.ClassRoadie";
-"org.junit.internal.runners.JUnit4ClassRunner$1";
-"org.junit.internal.runners.MethodRoadie";
-"org.junit.internal.runners.MethodRoadie$2";
-"org.junit.internal.runners.TestMethod";
+    label="org.junit.internal.runners"; 
+"org_junit_internal_runners_JUnit4ClassRunner";
+"org_junit_internal_runners_ClassRoadie";
+"org_junit_internal_runners_JUnit4ClassRunner_1";
+"org_junit_internal_runners_MethodRoadie";
+"org_junit_internal_runners_MethodRoadie_2";
+"org_junit_internal_runners_TestMethod";
 }
 
 subgraph cluster_org_eclipse_jdt_internal_junit4_runner { 
-    [label="org_eclipse_jdt_internal_junit4_runner"]; 
-"org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference";
+    label="org.eclipse.jdt.internal.junit4.runner"; 
+"org_eclipse_jdt_internal_junit4_runner_JUnit4TestReference";
 }
 
-"org.junit.internal.runners.JUnit4ClassRunner$1" [label="JUnit4ClassRunner$1 | run" fillcolor="#617a86"];
-  "org.junit.internal.runners.JUnit4ClassRunner$1" -> "org.junit.internal.runners.JUnit4ClassRunner" [color="#2f3c41" ];
+"org_junit_internal_runners_ClassRoadie" [label="ClassRoadie | runProtected | runUnprotected" fillcolor="#627c87"];
+  "org_junit_internal_runners_ClassRoadie" -> "org_junit_internal_runners_ClassRoadie" [color="#303c42" ];
+  "org_junit_internal_runners_ClassRoadie" -> "org_junit_internal_runners_JUnit4ClassRunner_1" [color="#303c42" ];
 
-"org.eclipse.jdt.internal.junit.runner.TestExecution" [label="TestExecution | run" fillcolor="#ffc0ff"];
-  "org.eclipse.jdt.internal.junit.runner.TestExecution" -> "org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference" [color="#b15e93" ];
+"org_junit_internal_runners_MethodRoadie" [label="MethodRoadie | run | runTest | runBeforesThenTestThenAfters | runTestMethod" fillcolor="#627c87"];
+  "org_junit_internal_runners_MethodRoadie" -> "org_junit_internal_runners_MethodRoadie" [color="#303c42" ];
+  "org_junit_internal_runners_MethodRoadie" -> "org_junit_internal_runners_MethodRoadie_2" [color="#303c42" ];
+  "org_junit_internal_runners_MethodRoadie" -> "org_junit_internal_runners_TestMethod" [color="#303c42" ];
 
-"org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference" [label="JUnit4TestReference | run" fillcolor="#78ff83"];
-  "org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference" -> "org.junit.internal.runners.JUnit4ClassRunner" [color="#3a8940" ];
+"com_directedgraphbuilder_CallGraphBuilderTest" [label="CallGraphBuilderTest | twoCallTest" fillcolor="#ffc87f"];
+  "com_directedgraphbuilder_CallGraphBuilderTest" -> "com_directedgraphbuilder_CallGraphBuilderTest_TestClass1" [color="#81623e" ];
+  "com_directedgraphbuilder_CallGraphBuilderTest" -> "com_directedgraphbuilder_CallGraphBuilderTest_TestClass2" [color="#81623e" ];
 
-"org.junit.internal.runners.TestMethod" [label="TestMethod | invoke" fillcolor="#617a86"];
-  "org.junit.internal.runners.TestMethod" -> "com.directedgraphbuilder.CallGraphBuilderTest" [color="#2f3c41" ];
+"org_junit_internal_runners_TestMethod" [label="TestMethod | invoke" fillcolor="#627c87"];
+  "org_junit_internal_runners_TestMethod" -> "com_directedgraphbuilder_CallGraphBuilderTest" [color="#303c42" ];
 
-"com.directedgraphbuilder.CallGraphBuilderTest$Destination" [label="CallGraphBuilderTest$Destination | destinationMethod" fillcolor="#ffc980"];
-  "com.directedgraphbuilder.CallGraphBuilderTest$Destination" -> "com.directedgraphbuilder.CallGraphBuilder" [color="#82623e" ];
+"com_directedgraphbuilder_CallGraphBuilder" [label="CallGraphBuilder | capture" fillcolor="#ffc87f"];
 
-"org.junit.internal.runners.JUnit4ClassRunner" [label="JUnit4ClassRunner | run | runMethods | invokeTestMethod" fillcolor="#617a86"];
-  "org.junit.internal.runners.JUnit4ClassRunner" -> "org.junit.internal.runners.MethodRoadie" [color="#2f3c41" ];
-  "org.junit.internal.runners.JUnit4ClassRunner" -> "org.junit.internal.runners.ClassRoadie" [color="#2f3c41" ];
-  "org.junit.internal.runners.JUnit4ClassRunner" -> "org.junit.internal.runners.JUnit4ClassRunner" [color="#2f3c41" ];
+"com_directedgraphbuilder_CallGraphBuilderTest_TestClass1" [label="CallGraphBuilderTest_TestClass1 | method" fillcolor="#ffc87f"];
+  "com_directedgraphbuilder_CallGraphBuilderTest_TestClass1" -> "com_directedgraphbuilder_CallGraphBuilderTest_Destination" [color="#81623e" ];
 
-"org.junit.internal.runners.MethodRoadie$2" [label="MethodRoadie$2 | run" fillcolor="#617a86"];
-  "org.junit.internal.runners.MethodRoadie$2" -> "org.junit.internal.runners.MethodRoadie" [color="#2f3c41" ];
+"com_directedgraphbuilder_CallGraphBuilderTest_TestClass2" [label="CallGraphBuilderTest_TestClass2 | method" fillcolor="#ffc87f"];
+  "com_directedgraphbuilder_CallGraphBuilderTest_TestClass2" -> "com_directedgraphbuilder_CallGraphBuilderTest_Destination" [color="#81623e" ];
 
-"org.eclipse.jdt.internal.junit.runner.RemoteTestRunner" [label="RemoteTestRunner | main | run | runTests" fillcolor="#ffc0ff"];
-  "org.eclipse.jdt.internal.junit.runner.RemoteTestRunner" -> "org.eclipse.jdt.internal.junit.runner.TestExecution" [color="#b15e93" ];
-  "org.eclipse.jdt.internal.junit.runner.RemoteTestRunner" -> "org.eclipse.jdt.internal.junit.runner.RemoteTestRunner" [color="#b15e93" ];
+"org_junit_internal_runners_MethodRoadie_2" [label="MethodRoadie_2 | run" fillcolor="#627c87"];
+  "org_junit_internal_runners_MethodRoadie_2" -> "org_junit_internal_runners_MethodRoadie" [color="#303c42" ];
 
-"com.directedgraphbuilder.CallGraphBuilderTest" [label="CallGraphBuilderTest | twoCallTest" fillcolor="#ffc980"];
-  "com.directedgraphbuilder.CallGraphBuilderTest" -> "com.directedgraphbuilder.CallGraphBuilderTest$TestClass1" [color="#82623e" ];
-  "com.directedgraphbuilder.CallGraphBuilderTest" -> "com.directedgraphbuilder.CallGraphBuilderTest$TestClass2" [color="#82623e" ];
+"start" [label="START\nmain" fillcolor="#b6b6b6"];
+  "start" -> "org_eclipse_jdt_internal_junit_runner_RemoteTestRunner" [color="#595959" ];
 
-"org.junit.internal.runners.MethodRoadie" [label="MethodRoadie | run | runTest | runBeforesThenTestThenAfters | runTestMethod" fillcolor="#617a86"];
-  "org.junit.internal.runners.MethodRoadie" -> "org.junit.internal.runners.MethodRoadie$2" [color="#2f3c41" ];
-  "org.junit.internal.runners.MethodRoadie" -> "org.junit.internal.runners.MethodRoadie" [color="#2f3c41" ];
-  "org.junit.internal.runners.MethodRoadie" -> "org.junit.internal.runners.TestMethod" [color="#2f3c41" ];
+"org_eclipse_jdt_internal_junit_runner_TestExecution" [label="TestExecution | run" fillcolor="#ffc2ff"];
+  "org_eclipse_jdt_internal_junit_runner_TestExecution" -> "org_eclipse_jdt_internal_junit4_runner_JUnit4TestReference" [color="#b25f93" ];
 
-"com.directedgraphbuilder.CallGraphBuilderTest$TestClass1" [label="CallGraphBuilderTest$TestClass1 | method" fillcolor="#ffc980"];
-  "com.directedgraphbuilder.CallGraphBuilderTest$TestClass1" -> "com.directedgraphbuilder.CallGraphBuilderTest$Destination" [color="#82623e" ];
+"org_junit_internal_runners_JUnit4ClassRunner_1" [label="JUnit4ClassRunner_1 | run" fillcolor="#627c87"];
+  "org_junit_internal_runners_JUnit4ClassRunner_1" -> "org_junit_internal_runners_JUnit4ClassRunner" [color="#303c42" ];
 
-"com.directedgraphbuilder.CallGraphBuilderTest$TestClass2" [label="CallGraphBuilderTest$TestClass2 | method" fillcolor="#ffc980"];
-  "com.directedgraphbuilder.CallGraphBuilderTest$TestClass2" -> "com.directedgraphbuilder.CallGraphBuilderTest$Destination" [color="#82623e" ];
+"org_eclipse_jdt_internal_junit4_runner_JUnit4TestReference" [label="JUnit4TestReference | run" fillcolor="#76ff82"];
+  "org_eclipse_jdt_internal_junit4_runner_JUnit4TestReference" -> "org_junit_internal_runners_JUnit4ClassRunner" [color="#3a893f" ];
 
-"start" [label="START
-main" fillcolor="#b6b6b6"];
-  "start" -> "org.eclipse.jdt.internal.junit.runner.RemoteTestRunner" [color="#595959" ];
+"com_directedgraphbuilder_CallGraphBuilderTest_Destination" [label="CallGraphBuilderTest_Destination | destinationMethod" fillcolor="#ffc87f"];
+  "com_directedgraphbuilder_CallGraphBuilderTest_Destination" -> "com_directedgraphbuilder_CallGraphBuilder" [color="#81623e" ];
 
-"org.junit.internal.runners.ClassRoadie" [label="ClassRoadie | runProtected | runUnprotected" fillcolor="#617a86"];
-  "org.junit.internal.runners.ClassRoadie" -> "org.junit.internal.runners.JUnit4ClassRunner$1" [color="#2f3c41" ];
-  "org.junit.internal.runners.ClassRoadie" -> "org.junit.internal.runners.ClassRoadie" [color="#2f3c41" ];
+"org_junit_internal_runners_JUnit4ClassRunner" [label="JUnit4ClassRunner | run | runMethods | invokeTestMethod" fillcolor="#627c87"];
+  "org_junit_internal_runners_JUnit4ClassRunner" -> "org_junit_internal_runners_ClassRoadie" [color="#303c42" ];
+  "org_junit_internal_runners_JUnit4ClassRunner" -> "org_junit_internal_runners_MethodRoadie" [color="#303c42" ];
+  "org_junit_internal_runners_JUnit4ClassRunner" -> "org_junit_internal_runners_JUnit4ClassRunner" [color="#303c42" ];
 
-"com.directedgraphbuilder.CallGraphBuilder" [label="CallGraphBuilder | capture" fillcolor="#ffc980"];
+"org_eclipse_jdt_internal_junit_runner_RemoteTestRunner" [label="RemoteTestRunner | main | run | runTests" fillcolor="#ffc2ff"];
+  "org_eclipse_jdt_internal_junit_runner_RemoteTestRunner" -> "org_eclipse_jdt_internal_junit_runner_TestExecution" [color="#b25f93" ];
+  "org_eclipse_jdt_internal_junit_runner_RemoteTestRunner" -> "org_eclipse_jdt_internal_junit_runner_RemoteTestRunner" [color="#b25f93" ];
 
 }
